@@ -39,8 +39,19 @@ A non-redundant list of contigB IDs is a reasonable starting list of contigs tha
 
 _NOTE: This approach has been fruitful for PacBio assemblies with contig N50 stats on the order of > 1Mbp. I cannot vouch for its effectiveness on more fragmented NGS-bases assemblies._
 
+Extension (DMRP)
+===========
+
+The original HomolContigsByAnnotation, reported a list of contig pairs that contain duplicated BUSCO. My extension carries out a LASTZ alignment between the two contigs and plots a dotplot (using R's ggplot2), highligting the position of identified BUSCO genes. This extension includes two scripts: compareContigPair.pl (requires BioPerl) and compareContigPairPlotAlignment.Rscript. 
+
+Usage:
+
+compareContigPair.pl HomolContigsByAnnotation_res.txt contigs.fixLineLength.fasta full_table_curated.BUSCO.tsv 
 
 
+the contigs  file (contigs.fasta) must be well formated. Just to make sure you can use EMBOSS's seqret:
+
+seqret -auto contigs.fasta contigs.fixLineLength.fasta
 
 THIS WEBSITE AND CONTENT AND ALL SITE-RELATED SERVICES, INCLUDING ANY DATA, ARE PROVIDED "AS IS," WITH ALL FAULTS, WITH NO REPRESENTATIONS OR WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, ANY WARRANTIES OF MERCHANTABILITY, SATISFACTORY QUALITY, NON-INFRINGEMENT OR FITNESS FOR A PARTICULAR PURPOSE. YOU ASSUME TOTAL RESPONSIBILITY AND RISK FOR YOUR USE OF THIS SITE, ALL SITE-RELATED SERVICES, AND ANY THIRD PARTY WEBSITES OR APPLICATIONS. NO ORAL OR WRITTEN INFORMATION OR ADVICE SHALL CREATE A WARRANTY OF ANY KIND. ANY REFERENCES TO SPECIFIC PRODUCTS OR SERVICES ON THE WEBSITES DO NOT CONSTITUTE OR IMPLY A RECOMMENDATION OR ENDORSEMENT BY PACIFIC BIOSCIENCES.
 

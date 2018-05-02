@@ -1,0 +1,19 @@
+#!/usr/bin/env Rscript
+args = commandArgs(trailingOnly=TRUE)
+#setwd("~/Downloads/Vellozia/")
+library(ggplot2)
+data1<-read.table(args[1],header=T)
+contig1Pos<-read.table(args[2],header=F)
+contig2Pos<-read.table(args[3],header=F)
+rectContig1<-data.frame(x1=contig1Pos$V4,x2=contig1Pos$V5,y1=-Inf,y2=Inf)
+rectContig2<-data.frame(y1=contig2Pos$V4,y2=contig2Pos$V5,x1=-Inf,x2=Inf)
+p<-ggplot(data1,aes(x=data1[,1],y=data1[,2])) + 
+  theme_bw()+
+  geom_path() +
+  xlab(colnames(data1)[1]) +
+  ylab(colnames(data1)[2]) +
+  geom_rect(data=rectContig1,inherit.aes=FALSE,mapping=aes(xmin=x1,xmax=x2,ymin=y1,ymax=y2),alpha=0.2,fill="red")+
+  geom_rect(data=rectContig2,inherit.aes=FALSE,mapping=aes(xmin=x1,xmax=x2,ymin=y1,ymax=y2),alpha=0.2,fill="red")+
+  theme(legend.position="none")
+outFile=paste(args[1],".pdf",sep='')
+ggsave(outFile,plot=p,width = 15)
